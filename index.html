@@ -16,11 +16,15 @@
 }
 
 body{
-    background: radial-gradient(circle at top,#111 0%,#000 70%);
+    background:
+        linear-gradient(rgba(0,0,0,0.80), rgba(0,0,0,0.80)),
+        url("bg.jpg");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
     color:white;
     overflow-x:hidden;
     animation:fadeIn 1.5s ease-in-out;
-    position:relative;
 }
 
 /* PARTICLES */
@@ -38,46 +42,70 @@ nav{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 50px;
+    padding:25px 60px;
 }
 
-.logo{
-    font-weight:900;
-    font-size:22px;
+.logo, .dropdown{
+    padding:10px 25px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
     cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:0.4s ease;
+    font-weight:600;
 }
 
+/* Hover Glow */
+.logo:hover, .dropdown:hover{
+    border-color:#ff00ff;
+    box-shadow:0 0 20px #ff00ff, 0 0 40px rgba(255,0,255,0.3);
+    transform:translateY(-3px);
+}
+
+/* Shine Effect */
+.logo::before, .dropdown::before{
+    content:"";
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,0.3),transparent);
+    transition:0.6s;
+}
+
+.logo:hover::before, .dropdown:hover::before{
+    left:100%;
+}
+
+/* Dropdown */
 .menu{
     list-style:none;
 }
 
-.menu li{
-    position:relative;
-    cursor:pointer;
-    font-weight:500;
-}
-
-/* DROPDOWN */
 .dropdown-menu{
     display:none;
     position:absolute;
-    top:35px;
+    top:60px;
     left:0;
-    background:#111;
+    background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(10px);
     padding:15px 0;
-    border-radius:10px;
+    border-radius:15px;
     box-shadow:0 0 20px #ff00ff;
-    min-width:180px;
+    min-width:200px;
 }
 
 .dropdown-menu li{
-    padding:10px 20px;
-    white-space:nowrap;
+    padding:12px 25px;
     transition:0.3s;
 }
 
 .dropdown-menu li:hover{
-    background:#222;
+    background:rgba(255,0,255,0.1);
     color:#ff00ff;
 }
 
@@ -89,7 +117,7 @@ nav{
 /* HERO */
 .hero{
     text-align:center;
-    margin-top:80px;
+    margin-top:100px;
 }
 
 .main-title{
@@ -100,7 +128,7 @@ nav{
 }
 
 .gradient-text{
-    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    background: linear-gradient(90deg,#ff4d6d,#ff00ff,#00f5ff);
     background-size:200% auto;
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
@@ -112,7 +140,7 @@ nav{
     font-size:36px;
     margin-top:30px;
     font-weight:700;
-    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    background: linear-gradient(90deg,#ff4d6d,#ff00ff,#00f5ff);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
     animation:heartbeat 1.5s infinite;
@@ -194,7 +222,7 @@ nav{
 
 .modal-content h2{
     margin-bottom:20px;
-    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    background: linear-gradient(90deg,#ff4d6d,#ff00ff,#00f5ff);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
@@ -268,16 +296,8 @@ nav{
     <div class="card"><img src="photo1.jpg"></div>
     <div class="card"><img src="photo2.jpg"></div>
     <div class="card"><img src="photo3.jpg"></div>
-    <div class="card"><img src="photo4.jpg"></div>
-    <div class="card"><img src="photo5.jpg"></div>
-    <div class="card"><img src="photo6.jpg"></div>
-    <div class="card"><img src="photo7.jpg"></div>
-    <div class="card"><img src="photo8.jpg"></div>
-    <div class="card"><img src="photo9.jpg"></div>
-    <div class="card"><img src="photo10.jpg"></div>
 </div>
 
-<!-- LOVE MODAL -->
 <div id="loveModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeLoveLetter()">&times;</span>
@@ -292,12 +312,10 @@ nav{
 
 <script>
 
-/* SMOOTH SCROLL */
 function scrollToSection(id){
     document.getElementById(id).scrollIntoView({behavior:"smooth"});
 }
 
-/* MODAL */
 function openLoveLetter(){
     document.getElementById("loveModal").style.display="flex";
 }
@@ -305,7 +323,6 @@ function closeLoveLetter(){
     document.getElementById("loveModal").style.display="none";
 }
 
-/* COUNTDOWN */
 const targetDate = new Date("March 25, 2026 00:00:00").getTime();
 
 setInterval(function(){
@@ -321,57 +338,14 @@ setInterval(function(){
         days+"d "+hours+"h "+minutes+"m "+seconds+"s ";
 },1000);
 
-/* RANDOM MESSAGE */
 const messages=[
 "Every second brings me closer to celebrating YOU ❤️",
 "A surprise is loading for the most special girl 💖",
-"This countdown hides something magical ✨",
-"Your smile is worth every second of this wait 🌸",
-"You deserve the most beautiful surprise 🌹"
+"Your birthday deserves something magical ✨"
 ];
+
 document.getElementById("dynamicMessage").innerText=
 messages[Math.floor(Math.random()*messages.length)];
-
-/* PARTICLES */
-const canvas=document.getElementById("particles");
-const ctx=canvas.getContext("2d");
-canvas.width=window.innerWidth;
-canvas.height=window.innerHeight;
-
-let particlesArray=[];
-class Particle{
-    constructor(){
-        this.x=Math.random()*canvas.width;
-        this.y=Math.random()*canvas.height;
-        this.size=Math.random()*2+1;
-        this.speedY=Math.random()*0.5+0.2;
-    }
-    update(){
-        this.y-=this.speedY;
-        if(this.y<0) this.y=canvas.height;
-    }
-    draw(){
-        ctx.fillStyle="rgba(255,0,255,0.5)";
-        ctx.beginPath();
-        ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-        ctx.fill();
-    }
-}
-function init(){
-    for(let i=0;i<120;i++){
-        particlesArray.push(new Particle());
-    }
-}
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particlesArray.forEach(p=>{
-        p.update();
-        p.draw();
-    });
-    requestAnimationFrame(animate);
-}
-init();
-animate();
 
 </script>
 
