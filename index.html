@@ -56,12 +56,21 @@ nav ul li:hover{
     margin-top:40px;
 }
 
-.hero h1{
-    font-size:60px;
+ .main-title{
+    font-size:65px;
     font-weight:900;
     line-height:1.2;
+    letter-spacing:1px;
+    animation: slideUp 1.5s ease forwards;
 }
 
+.gradient-text{
+    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    background-size: 200% auto;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    animation: gradientMove 4s linear infinite;
+}
 .gradient-text{
     background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
     -webkit-background-clip:text;
@@ -148,6 +157,21 @@ nav ul li:hover{
 body{
     animation:fadeIn 1.5s ease-in-out;
 }
+    @keyframes slideUp{
+    from{
+        opacity:0;
+        transform:translateY(40px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes gradientMove{
+    0%{background-position:0%}
+    100%{background-position:200%}
+}
 </style>
 </head>
 <body>
@@ -163,10 +187,10 @@ body{
 </nav>
 
 <div class="hero">
-    <h1>
-        UNIQUE COLLECTION <br>
-        OF <span class="gradient-text">NFT ARTS</span>
-    </h1>
+   <h1 class="main-title">
+    Counting Down To <br>
+    <span class="gradient-text">Your Smile 💖</span>
+</h1>
 
     <div id="countdown"></div>
     <div id="dynamicMessage"></div>
