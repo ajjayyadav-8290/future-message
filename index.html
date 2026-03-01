@@ -1,155 +1,134 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>25 March Surprise</title>
+  <title>Deep Ocean Surprise</title>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #02111b, #000814);
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
 
-<style>
-body{
-margin:0;
-overflow:hidden;
-background:black;
-font-family:Segoe UI;
-color:white;
-text-align:center;
-}
+    /* Ocean background */
+    .ocean {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 20%, #033a4a, #000814 80%);
+      z-index: -3;
+    }
 
-/* Background Video */
-.bg-video{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-object-fit:cover;
-filter:blur(50px) brightness(35%);
-transform:scale(1.3);
-z-index:-5;
-}
+    /* Fish swimming */
+    .fish {
+      position: absolute;
+      width: 120px;
+      animation: swim 25s linear infinite;
+      opacity: 0.8;
+    }
 
-/* TIMER (Less glow + Upper position) */
-.timer-box{
-position:absolute;
-top:15%;
-left:50%;
-transform:translateX(-50%);
-}
+    .fish2 {
+      top: 60%;
+      animation-delay: 10s;
+      width: 90px;
+    }
 
-.countdown{
-font-size:55px;
-letter-spacing:4px;
-font-weight:bold;
-color:white;
-text-shadow:
-0 0 5px rgba(255,255,255,0.4),
-0 0 10px rgba(0,200,255,0.4);
-}
+    @keyframes swim {
+      from { left: -150px; }
+      to { left: 110%; }
+    }
 
-/* ROTATING CIRCLE */
-.circle{
-position:absolute;
-top:55%;
-left:50%;
-transform:translate(-50%,-50%);
-width:350px;
-height:350px;
-animation:rotate 25s linear infinite;
-}
+    /* Countdown */
+    .countdown {
+      position: absolute;
+      top: 40%;
+      width: 100%;
+      font-size: 40px;
+      letter-spacing: 2px;
+    }
 
-@keyframes rotate{
-from{transform:translate(-50%,-50%) rotate(0deg);}
-to{transform:translate(-50%,-50%) rotate(360deg);}
-}
+    /* Surprise Section */
+    .surprise {
+      display: none;
+      padding-top: 50px;
+    }
 
-.circle img{
-position:absolute;
-width:80px;
-height:80px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid rgba(255,255,255,0.6);
-}
+    .photos img {
+      width: 200px;
+      margin: 10px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00b4d8;
+      transition: transform 0.5s;
+    }
 
-/* Position 10 images in circle */
-.circle img:nth-child(1){top:0%; left:50%; transform:translate(-50%,-50%);}
-.circle img:nth-child(2){top:15%; left:85%;}
-.circle img:nth-child(3){top:50%; left:100%; transform:translate(-50%,-50%);}
-.circle img:nth-child(4){top:85%; left:85%;}
-.circle img:nth-child(5){top:100%; left:50%; transform:translate(-50%,-50%);}
-.circle img:nth-child(6){top:85%; left:15%;}
-.circle img:nth-child(7){top:50%; left:0%; transform:translate(-50%,-50%);}
-.circle img:nth-child(8){top:15%; left:15%;}
-.circle img:nth-child(9){top:30%; left:95%;}
-.circle img:nth-child(10){top:70%; left:5%;}
+    .photos img:hover {
+      transform: scale(1.1);
+    }
 
-/* Center Message */
-.center-message{
-position:absolute;
-top:55%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:28px;
-font-weight:bold;
-text-shadow:0 0 10px rgba(255,255,255,0.6);
-z-index:5;
-}
-
-.subtitle{
-margin-top:10px;
-font-size:18px;
-opacity:0.7;
-}
-</style>
+  </style>
 </head>
 
 <body>
 
-<video class="bg-video" autoplay muted loop playsinline>
-<source src="bg.mp4" type="video/mp4">
-</video>
+<div class="ocean"></div>
 
-<!-- TIMER -->
-<div class="timer-box">
-<div class="countdown" id="countdown"></div>
-<div class="subtitle">The world changed on 25th March...</div>
+<!-- Fish GIFs -->
+<img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" class="fish" style="top:30%;">
+<img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" class="fish fish2">
+
+<!-- Ocean Sound -->
+<audio autoplay loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9e5b3f28c7.mp3?filename=deep-ocean-ambient-110624.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Countdown -->
+<div class="countdown" id="countdown">
+  Waiting for the special moment...
 </div>
 
-<!-- ROTATING PHOTOS -->
-<div class="circle">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="photo4.jpg">
-<img src="photo5.jpg">
-<img src="photo6.jpg">
-<img src="photo7.jpg">
-<img src="photo8.jpg">
-<img src="photo9.jpg">
-<img src="photo10.jpg">
-</div>
-
-<!-- CENTER SURPRISE MESSAGE -->
-<div class="center-message">
-Something Beautiful is Coming 💙
+<!-- Surprise Section -->
+<div class="surprise" id="surprise">
+  <h1>💙 Our Beautiful Memories 💙</h1>
+  <div class="photos">
+    <img src="photo1.jpg">
+    <img src="photo2.jpg">
+    <img src="photo3.jpg">
+    <img src="photo4.jpg">
+    <img src="photo5.jpg">
+    <img src="photo6.jpg">
+    <img src="photo7.jpg">
+    <img src="photo8.jpg">
+    <img src="photo9.jpg">
+    <img src="photo10.jpg">
+  </div>
 </div>
 
 <script>
-const countdown=document.getElementById("countdown");
-const targetDate=new Date("March 25, 2026 00:00:00").getTime();
+  // Set your surprise date here
+  var countDate = new Date("March 25, 2026 00:00:00").getTime();
 
-setInterval(function(){
-const now=new Date().getTime();
-const distance=targetDate-now;
+  var x = setInterval(function() {
+    var now = new Date().getTime();
+    var distance = countDate - now;
 
-let days=Math.floor(distance/(1000*60*60*24));
-let hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-let minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-let seconds=Math.floor((distance%(1000*60))/1000);
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-countdown.innerHTML=
-days+"D : "+hours+"H : "+minutes+"M : "+seconds+"S";
-},1000);
+    document.getElementById("countdown").innerHTML =
+      days + "d " + hours + "h "
+      + minutes + "m " + seconds + "s ";
+
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdown").style.display = "none";
+      document.getElementById("surprise").style.display = "block";
+    }
+  }, 1000);
 </script>
 
 </body>
