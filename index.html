@@ -1,134 +1,244 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Deep Ocean Surprise</title>
-  <meta charset="UTF-8" />
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: linear-gradient(to bottom, #02111b, #000814);
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unique Collection - Surprise</title>
 
-    /* Ocean background */
-    .ocean {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at 50% 20%, #033a4a, #000814 80%);
-      z-index: -3;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700;900&display=swap" rel="stylesheet">
 
-    /* Fish swimming */
-    .fish {
-      position: absolute;
-      width: 120px;
-      animation: swim 25s linear infinite;
-      opacity: 0.8;
-    }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-    .fish2 {
-      top: 60%;
-      animation-delay: 10s;
-      width: 90px;
-    }
+body{
+    background: radial-gradient(circle at top,#111 0%,#000 70%);
+    color:white;
+    overflow-x:hidden;
+}
 
-    @keyframes swim {
-      from { left: -150px; }
-      to { left: 110%; }
-    }
+/* NAVBAR */
+nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 50px;
+}
 
-    /* Countdown */
-    .countdown {
-      position: absolute;
-      top: 40%;
-      width: 100%;
-      font-size: 40px;
-      letter-spacing: 2px;
-    }
+.logo{
+    font-weight:900;
+    font-size:22px;
+    letter-spacing:2px;
+}
 
-    /* Surprise Section */
-    .surprise {
-      display: none;
-      padding-top: 50px;
-    }
+nav ul{
+    display:flex;
+    gap:30px;
+    list-style:none;
+}
 
-    .photos img {
-      width: 200px;
-      margin: 10px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00b4d8;
-      transition: transform 0.5s;
-    }
+nav ul li{
+    cursor:pointer;
+    transition:0.3s;
+}
 
-    .photos img:hover {
-      transform: scale(1.1);
-    }
+nav ul li:hover{
+    color:#00f5ff;
+}
 
-  </style>
+/* HERO */
+.hero{
+    text-align:center;
+    margin-top:40px;
+}
+
+.hero h1{
+    font-size:60px;
+    font-weight:900;
+    line-height:1.2;
+}
+
+.gradient-text{
+    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* TIMER */
+#countdown{
+    font-size:32px;
+    margin-top:20px;
+    font-weight:700;
+    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+/* Dynamic Message */
+#dynamicMessage{
+    margin-top:15px;
+    font-size:18px;
+    color:#ccc;
+    min-height:25px;
+}
+
+/* GALLERY */
+.gallery{
+    margin-top:60px;
+    display:flex;
+    justify-content:center;
+    gap:25px;
+    flex-wrap:wrap;
+    padding:40px;
+}
+
+.card{
+    width:220px;
+    height:300px;
+    border-radius:20px;
+    overflow:hidden;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transform-style:preserve-3d;
+    perspective:1000px;
+}
+
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.card:hover{
+    transform:scale(1.1) rotateY(10deg);
+    box-shadow:0 0 30px #ff00ff;
+}
+
+/* Upcoming */
+.upcoming{
+    margin-top:60px;
+    text-align:center;
+    font-size:22px;
+    color:#aaa;
+    padding-bottom:60px;
+}
+
+/* SECOND SCREEN */
+#secondScreen{
+    display:none;
+    height:100vh;
+    width:100%;
+    background:black;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    font-size:40px;
+}
+
+/* Fade Animation */
+@keyframes fadeIn{
+    from{opacity:0}
+    to{opacity:1}
+}
+
+body{
+    animation:fadeIn 1.5s ease-in-out;
+}
+</style>
 </head>
-
 <body>
 
-<div class="ocean"></div>
+<nav>
+    <div class="logo">XNFT</div>
+    <ul>
+        <li>Market</li>
+        <li>Gallery</li>
+        <li>Wallet</li>
+        <li>Support</li>
+    </ul>
+</nav>
 
-<!-- Fish GIFs -->
-<img src="https://media.giphy.com/media/3o6ZtaO9BZHcOjmErm/giphy.gif" class="fish" style="top:30%;">
-<img src="https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif" class="fish fish2">
+<div class="hero">
+    <h1>
+        UNIQUE COLLECTION <br>
+        OF <span class="gradient-text">NFT ARTS</span>
+    </h1>
 
-<!-- Ocean Sound -->
-<audio autoplay loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9e5b3f28c7.mp3?filename=deep-ocean-ambient-110624.mp3" type="audio/mpeg">
-</audio>
-
-<!-- Countdown -->
-<div class="countdown" id="countdown">
-  Waiting for the special moment...
+    <div id="countdown"></div>
+    <div id="dynamicMessage"></div>
 </div>
 
-<!-- Surprise Section -->
-<div class="surprise" id="surprise">
-  <h1>💙 Our Beautiful Memories 💙</h1>
-  <div class="photos">
-    <img src="photo1.jpg">
-    <img src="photo2.jpg">
-    <img src="photo3.jpg">
-    <img src="photo4.jpg">
-    <img src="photo5.jpg">
-    <img src="photo6.jpg">
-    <img src="photo7.jpg">
-    <img src="photo8.jpg">
-    <img src="photo9.jpg">
-    <img src="photo10.jpg">
-  </div>
+<!-- GALLERY -->
+<div class="gallery">
+    <div class="card"><img src="photo1.jpg" alt=""></div>
+    <div class="card"><img src="photo2.jpg" alt=""></div>
+    <div class="card"><img src="photo3.jpg" alt=""></div>
+    <div class="card"><img src="photo4.jpg" alt=""></div>
+    <div class="card"><img src="photo5.jpg" alt=""></div>
+    <div class="card"><img src="photo6.jpg" alt=""></div>
+    <div class="card"><img src="photo7.jpg" alt=""></div>
+    <div class="card"><img src="photo8.jpg" alt=""></div>
+    <div class="card"><img src="photo9.jpg" alt=""></div>
+    <div class="card"><img src="photo10.jpg" alt=""></div>
+</div>
+
+<div class="upcoming">
+    Something magical is coming... <br>
+    A surprise awaits you ❤️
+</div>
+
+<div id="secondScreen">
+    🎉 HAPPY BIRTHDAY MY LOVE 🎉
 </div>
 
 <script>
-  // Set your surprise date here
-  var countDate = new Date("March 25, 2026 00:00:00").getTime();
 
-  var x = setInterval(function() {
-    var now = new Date().getTime();
-    var distance = countDate - now;
+/* COUNTDOWN */
+const targetDate = new Date("March 25, 2026 00:00:00").getTime();
 
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+const countdownFunction = setInterval(function(){
+
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     document.getElementById("countdown").innerHTML =
-      days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+        days + "d " + hours + "h "
+        + minutes + "m " + seconds + "s ";
 
-    if (distance < 0) {
-      clearInterval(x);
-      document.getElementById("countdown").style.display = "none";
-      document.getElementById("surprise").style.display = "block";
+    if(distance < 0){
+        clearInterval(countdownFunction);
+        document.querySelector(".hero").style.display = "none";
+        document.querySelector(".gallery").style.display = "none";
+        document.querySelector(".upcoming").style.display = "none";
+        document.querySelector("nav").style.display = "none";
+        document.getElementById("secondScreen").style.display = "flex";
     }
-  }, 1000);
+
+}, 1000);
+
+
+/* RANDOM LOVE MESSAGE */
+const messages = [
+    "Every second brings me closer to celebrating YOU ❤️",
+    "A surprise is loading for the most special girl 💖",
+    "This countdown hides something magical ✨",
+    "Your smile is worth every second of this wait 🌸",
+    "25th March will be unforgettable 💕",
+    "You deserve the most beautiful surprise 🌹"
+];
+
+const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+document.getElementById("dynamicMessage").innerText = randomMessage;
+
 </script>
 
 </body>
