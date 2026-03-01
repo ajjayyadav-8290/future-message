@@ -23,7 +23,7 @@ body{
     position:relative;
 }
 
-/* PARTICLE CANVAS */
+/* PARTICLES */
 #particles{
     position:fixed;
     top:0;
@@ -44,6 +44,46 @@ nav{
 .logo{
     font-weight:900;
     font-size:22px;
+    cursor:pointer;
+}
+
+.menu{
+    list-style:none;
+}
+
+.menu li{
+    position:relative;
+    cursor:pointer;
+    font-weight:500;
+}
+
+/* DROPDOWN */
+.dropdown-menu{
+    display:none;
+    position:absolute;
+    top:35px;
+    left:0;
+    background:#111;
+    padding:15px 0;
+    border-radius:10px;
+    box-shadow:0 0 20px #ff00ff;
+    min-width:180px;
+}
+
+.dropdown-menu li{
+    padding:10px 20px;
+    white-space:nowrap;
+    transition:0.3s;
+}
+
+.dropdown-menu li:hover{
+    background:#222;
+    color:#ff00ff;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block;
+    animation:fadeIn 0.3s ease-in-out;
 }
 
 /* HERO */
@@ -75,10 +115,9 @@ nav{
     background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-    animation: heartbeat 1.5s infinite;
+    animation:heartbeat 1.5s infinite;
 }
 
-/* Heartbeat animation */
 @keyframes heartbeat{
     0%{transform:scale(1);}
     25%{transform:scale(1.1);}
@@ -93,9 +132,16 @@ nav{
     color:#ccc;
 }
 
+/* BEGINNING SECTION */
+#beginning{
+    padding:100px 20px;
+    text-align:center;
+    font-size:22px;
+}
+
 /* GALLERY */
 .gallery{
-    margin-top:80px;
+    margin-top:40px;
     display:flex;
     justify-content:center;
     gap:25px;
@@ -122,25 +168,43 @@ nav{
     box-shadow:0 0 30px #ff00ff;
 }
 
-.upcoming{
-    margin-top:60px;
-    text-align:center;
-    font-size:22px;
-    color:#aaa;
-    padding-bottom:60px;
-}
-
-/* SECOND SCREEN */
-#secondScreen{
+/* MODAL */
+.modal{
     display:none;
-    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
     width:100%;
-    background:black;
+    height:100%;
+    background:rgba(0,0,0,0.8);
     justify-content:center;
     align-items:center;
-    flex-direction:column;
+    z-index:1000;
+}
+
+.modal-content{
+    background:#111;
+    padding:40px;
+    border-radius:20px;
+    width:80%;
+    max-width:500px;
     text-align:center;
-    font-size:45px;
+    box-shadow:0 0 25px #ff00ff;
+}
+
+.modal-content h2{
+    margin-bottom:20px;
+    background: linear-gradient(90deg,#00f5ff,#ff00ff,#ff4d4d);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.close{
+    position:absolute;
+    right:20px;
+    top:15px;
+    font-size:25px;
+    cursor:pointer;
 }
 
 @keyframes fadeIn{
@@ -168,10 +232,23 @@ nav{
 <canvas id="particles"></canvas>
 
 <nav>
-    <div class="logo">XNFT</div>
+    <div class="logo" onclick="scrollToSection('countdownSection')">
+        🔓 Unlock Day
+    </div>
+
+    <ul class="menu">
+        <li class="dropdown">
+            Your Universe ✨
+            <ul class="dropdown-menu">
+                <li onclick="scrollToSection('beginning')">The Beginning</li>
+                <li onclick="openLoveLetter()">Why You?</li>
+                <li onclick="scrollToSection('gallery')">Memories</li>
+            </ul>
+        </li>
+    </ul>
 </nav>
 
-<div class="hero">
+<div id="countdownSection" class="hero">
     <h1 class="main-title">
         Counting Down To <br>
         <span class="gradient-text">Your Smile 💖</span>
@@ -181,7 +258,13 @@ nav{
     <div id="dynamicMessage"></div>
 </div>
 
-<div class="gallery">
+<div id="beginning">
+    The day we first talked…  
+    I didn’t know you would become the most important part of my life.  
+    But here we are… and I wouldn’t change a single moment. ❤️
+</div>
+
+<div id="gallery" class="gallery">
     <div class="card"><img src="photo1.jpg"></div>
     <div class="card"><img src="photo2.jpg"></div>
     <div class="card"><img src="photo3.jpg"></div>
@@ -194,21 +277,38 @@ nav{
     <div class="card"><img src="photo10.jpg"></div>
 </div>
 
-<div class="upcoming">
-    Something magical is coming... <br>
-    A surprise awaits you ❤️
-</div>
-
-<div id="secondScreen">
-    🎉 HAPPY BIRTHDAY MY LOVE 🎉
+<!-- LOVE MODAL -->
+<div id="loveModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeLoveLetter()">&times;</span>
+        <h2>Why You? 💖</h2>
+        <p>
+            Because you are my peace, my happiness,  
+            and the reason ordinary days feel magical.  
+            You make my universe brighter just by existing. ✨
+        </p>
+    </div>
 </div>
 
 <script>
 
+/* SMOOTH SCROLL */
+function scrollToSection(id){
+    document.getElementById(id).scrollIntoView({behavior:"smooth"});
+}
+
+/* MODAL */
+function openLoveLetter(){
+    document.getElementById("loveModal").style.display="flex";
+}
+function closeLoveLetter(){
+    document.getElementById("loveModal").style.display="none";
+}
+
 /* COUNTDOWN */
 const targetDate = new Date("March 25, 2026 00:00:00").getTime();
 
-const countdownFunction = setInterval(function(){
+setInterval(function(){
     const now = new Date().getTime();
     const distance = targetDate - now;
 
@@ -219,15 +319,6 @@ const countdownFunction = setInterval(function(){
 
     document.getElementById("countdown").innerHTML =
         days+"d "+hours+"h "+minutes+"m "+seconds+"s ";
-
-    if(distance<0){
-        clearInterval(countdownFunction);
-        document.querySelector(".hero").style.display="none";
-        document.querySelector(".gallery").style.display="none";
-        document.querySelector(".upcoming").style.display="none";
-        document.querySelector("nav").style.display="none";
-        document.getElementById("secondScreen").style.display="flex";
-    }
 },1000);
 
 /* RANDOM MESSAGE */
@@ -236,21 +327,18 @@ const messages=[
 "A surprise is loading for the most special girl 💖",
 "This countdown hides something magical ✨",
 "Your smile is worth every second of this wait 🌸",
-"25th March will be unforgettable 💕",
 "You deserve the most beautiful surprise 🌹"
 ];
-
 document.getElementById("dynamicMessage").innerText=
 messages[Math.floor(Math.random()*messages.length)];
 
-/* FLOATING PARTICLES */
+/* PARTICLES */
 const canvas=document.getElementById("particles");
 const ctx=canvas.getContext("2d");
 canvas.width=window.innerWidth;
 canvas.height=window.innerHeight;
 
 let particlesArray=[];
-
 class Particle{
     constructor(){
         this.x=Math.random()*canvas.width;
@@ -269,13 +357,11 @@ class Particle{
         ctx.fill();
     }
 }
-
 function init(){
     for(let i=0;i<120;i++){
         particlesArray.push(new Particle());
     }
 }
-
 function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     particlesArray.forEach(p=>{
@@ -284,7 +370,6 @@ function animate(){
     });
     requestAnimationFrame(animate);
 }
-
 init();
 animate();
 
